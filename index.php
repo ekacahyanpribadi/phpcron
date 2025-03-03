@@ -15,5 +15,5 @@ return;
 }
 */
 
-file_put_contents('./cron_result.txt', "Log: " . date('Y-m-d H:i:s') ."\t\t\t" . $text . "\n",FILE_APPEND);
+//file_put_contents('./cron_result.txt', "Log: " . date('Y-m-d H:i:s') ."\t\t\t" . $text . "\n",FILE_APPEND);
 
