@@ -1,3 +1,1 @@
-		
-Log: 2025-03-04 01:11:19			
-Log: 2025-03-04 01:16:19			
+{"code":200,"status":"true","data":"Success insert to log cron. 2025-03-04 19:16:20 (LOCAL)"} 

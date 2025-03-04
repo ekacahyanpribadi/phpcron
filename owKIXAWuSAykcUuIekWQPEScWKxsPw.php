@@ -17,7 +17,7 @@ function get_client_ip() {
     else if(isset($_SERVER['REMOTE_ADDR']))
         $ipaddress = $_SERVER['REMOTE_ADDR'];
     else
-        $ipaddress = 'UNKNOWN';
+        $ipaddress = 'LOCAL';
     return $ipaddress;
 }
 $getip=get_client_ip();
@@ -52,7 +52,7 @@ insert into `production`.`log_cron` values
 
 $rs = DB::query($sql);
 if (!$rs) {
-    responseHasil(400, 'error', "Error insert to log cron.");
+    responseHasil(400, 'error', "Error insert to log cron.".$created);
 }
 
 $opsi = "email";
@@ -91,10 +91,12 @@ $cBefore = $rscekBefore['n'];
 $cAfter = $rscekAfter['n'];
 
 if($cBefore < $cAfter){
-    responseHasil(200, 'success', "Success insert to log cron.");
+    responseHasil(200, 'success', "Success insert to log cron. ".$created);
+    
 }else{
     kirimEmail($opsi, $email,$subject, $body);
 }
+
 
 
 
@@ -132,6 +134,14 @@ function kirimEmail($opsi = null, $rec = null, $sub = null, $mess = null)
     curl_close($ch);
 }
 
+$created = date("Y-m-d H:i:s");
+$resp = array("code"=>200, "status"=>"true", "data"=>"Success insert to log cron. ".$created." (".$getip.")");
+$resp = json_encode($resp);
 
+
+$myfile = fopen("cron_result.txt", "w") or die("Unable to open file!");
+$txt = $resp." \n";
+fwrite($myfile, $txt);
+fclose($myfile);
 
 ?>
